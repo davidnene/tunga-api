@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +30,7 @@ Route::group([
     Route::get('profile', [ApiController::class, 'profile']);
     Route::get('refresh', [ApiController::class, 'refreshToken']);
     Route::get('logout', [ApiController::class, 'logout']);
+    Route::apiResource('profiles', ProfileController::class, [
+        'only' => ['index', 'show', 'store', 'update', 'destroy'],
+       ]);
 });
