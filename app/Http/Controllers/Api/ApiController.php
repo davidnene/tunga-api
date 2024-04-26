@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Auth\Events\Registered;
+
 
 class ApiController extends Controller
 {
@@ -34,12 +36,14 @@ class ApiController extends Controller
         }
 
         // Data save
-        User::create([
+        $user = User::create([
             "name" => $request->name,
             "email" => $request->email,
             "password" => Hash::make($request->password)
         ]);
 
+
+        event(new Registered($user));
         // Response
         return response()->json([
             "status" => true,

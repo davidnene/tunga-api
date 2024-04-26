@@ -24,6 +24,10 @@ use App\Http\Controllers\ProfileController;
 Route::post('register', [ApiController::class, 'register']);
 Route::post('login', [ApiController::class, 'login']);
 
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
 Route::group([
     'middleware' => ['auth:api']
 ], function() {
